@@ -7,20 +7,54 @@ router.get('/', function(req, res, next) {
   res.sendFile('index.html', { title: 'public' });
 });
 
+var cityInfo = [];
+
+var userInfo = [];
+
 router.get('/cityInfo', function(req, res, next) {
     console.log("In cityInfo " + "Request Data: " + req.query.gender);
-    console.log("Gender: " + req.query.gender);
-    console.log("Username" + req.query.username);
-    console.log("City" + req.query.city);
     var receivedCity = req.query.city;
     var lowerCaseCity = receivedCity.toLowerCase();
-    console.log("Lower Case City: " + lowerCaseCity);
     var teleportUrl = "https://api.teleport.org/api/urban_areas/slug:";
     teleportUrl += lowerCaseCity + "/";
-    console.log(teleportUrl);
-    //var cityid = [];
     request(teleportUrl).pipe(res);
-    
+})
+
+router.post('/userInfo', function(req, res) {
+  console.log("In user Info");
+  var user = {"gender" : "", "username" : "", "pictureUrl" : ""};
+  user['gender'] = req.body.gender;
+  user['username'] = req.body.username;
+  user['pictureUrl'] = req.body.customIcon;
+  user['userCity'] = req.body.userCity;
+  userInfo.push(user);
+  res.send(userInfo);
+  res.end('{"success" : "Updated Successfully", "status" : 200}');
+})
+
+router.get('/userInfo', function(req, res){
+  res.send(userInfo)
+})
+
+router.post('/updatedCityInfo', function(req, res) {
+  for (var i = 0; i < cityInfo.length; ++i) {
+    if (cityInfo[i]['cityName'] == req.body.cityName) {
+      console.log("It worked!!!");
+      return;
+    }
+  }
+  console.log("made it here!");
+  console.log("Data:" + req.body.continent);
+  var city = {'continent' : '', 'cityName' : '', 'pictureUrl' :'', 'mobileUrl' : ''};
+  city['continent'] = req.body.continent;
+  city['cityName'] = req.body.cityName;
+  city['pictureUrl'] = req.body.pictureUrl;
+  city['mobileUrl'] = req.body.mobileUrl;
+  cityInfo.push(city);
+})
+
+router.get('/updatedCityInfo', function(req, res, next) {
+  res.send(cityInfo);
 })
 
 module.exports = router;

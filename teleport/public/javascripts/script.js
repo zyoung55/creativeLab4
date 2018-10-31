@@ -3,37 +3,37 @@ global $
 */
 
 $(document).ready(function() {
-    
+   
     console.log("YEAH!");
     
     $("#userForm").submit(function(e) {
         e.preventDefault();
         
-        //user?name=tom&age=55
-        
         var cityString = $('#userCity').val();
         var splitString = cityString.split('');
-        console.log(splitString);
         
         for (var i = 0; i < splitString.length; ++i) {
             console.log(splitString[i]);
             if (splitString[i] == " ") {
-                console.log("Yeahahah");
                 splitString.splice(i, 1, '-');
             }
         }
         cityString = splitString.join('');
-        console.log("City String" + splitString);
+    
+        var avatarUrl = "https://avatars.dicebear.com/v2" + "/" + $('#gender').val() + "/" + $('#userName').val() + ".svg";
+        console.log(avatarUrl);
+    
+        var userUrl = "userInfo";
+        var userData = {"gender" : $('#gender').val(), "username" : $('#userName').val(), "customIcon" : avatarUrl, "userCity" : cityString};
         
+        /*This adds the data to the /userInfo route*/
+        $.post(userUrl, userData, function(data) {})
         
         var cityUrl = "cityInfo?";
-        //var query = "gender=" + $('#gender').val() + "&" + "username=" + $('#userName').val() + "&" + "city=" + $('#userCity').val();
         var query = "gender=" + $('#gender').val() + "&" + "username=" + $('#userName').val() + "&" + "city=" + cityString;
         cityUrl += query;
-        console.log("CityUrl" + cityUrl);
         
-        var cityData = {"continent" : "", "fullName" : "", "pictureURL" : "", "mobileURL" : ""
-        };
+        var cityData = {"continent" : "", "fullName" : "", "pictureURL" : "", "mobileURL" : ""};
         
         /*Get the original data for the city.*/
         $.getJSON(cityUrl, function() {})
@@ -52,15 +52,15 @@ $(document).ready(function() {
             cityData["continent"] = data.continent;
             cityData["fullName"] = data.full_name;
             cityData["pictureURL"] = data["_links"]["ua:images"]["href"];
-            console.log(cityData);
-            console.log(data);
-            console.log(cityData["pictureURL"]);
             
             /*Get the url for the cities picture to display. */
             $.getJSON(cityData["pictureURL"], function(data){
                 cityData["mobileURL"] = data.photos[0]["image"]["mobile"];
-                console.log("mobileImage:", cityData["mobileURL"]);
-                console.log('<img src="' + cityData["mobileURL"] + '">');
+                
+                
+                var updatedCityUrl = "updatedCityInfo";
+                var updatedData = {"continent" : cityData["continent"], "cityName" : cityString, "pictureUrl" : cityData["pictureURL"], "mobileUrl" :  cityData["mobileURL"]}; 
+                $.post(updatedCityUrl, updatedData, function(data) {});
                 
                 var newDiv = $('<div id="' +  $('#userCity').val() + '"></div>')
                 $("#containerDiv").append(newDiv);
