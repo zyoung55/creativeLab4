@@ -38,6 +38,21 @@ $(document).ready(function() {
         for (var i = 0; i < tempCitiesArray.length; ++i) {
             var newDiv = $('<div id="' +  $('#userCity').val() + '"></div>')
             $("#containerDiv").append(newDiv);
+            if (i == 0) {
+                var numberOneMessage = $("<h3>Number One City!</h3>");
+                numberOneMessage.css({"color" : "#FFE033"})
+                newDiv.append(numberOneMessage);
+            }
+            if (i == 1) {
+                var numberTwoMessage = $('<h3>Number Two City!</h3>');
+                numberTwoMessage.css({"color" : "#C9C9AF"});
+                newDiv.append(numberTwoMessage);
+            }
+            if (i == 2) {
+                var numberThreeMessage = $('<h3>Number Three City!</h3>');
+                numberThreeMessage.css({"color": "#E8B664"})
+                newDiv.append(numberThreeMessage);
+            }
                 
             var cityNameElement = $("<h3>" + tempCitiesArray[i]["cityName"] + "</h3>");
             newDiv.append(cityNameElement);
