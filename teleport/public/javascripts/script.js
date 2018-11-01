@@ -51,7 +51,22 @@ $(document).ready(function() {
             var currentMembers = $("<h4>Current users from city: " + tempCitiesArray[i]['peopleTally'] + "</h4>");
             newDiv.append(currentMembers);
             for (var j = 0; j < userData.length; ++j) {
-                console.log(userData[j]);
+                //console.log(userData[j]);
+                //console.log("Current city name:" + tempCitiesArray[i]["cityName"] + " " + userData[j]['cityName']);
+                if (tempCitiesArray[i]['cityName'] == userData[j]['userCity']) {
+                    var userDiv = $('<div class="userDisplayClass"></div>');
+                    var personImage = $('<img src="' + userData[j]['pictureUrl'] + '">');
+                    personImage.css({"width" : "4%"});
+                    userDiv.append(personImage);
+                    
+                    var userName = $('<h6>' + userData[j]['username'] + '</h6>');
+                    console.log("userName" + userData[j]['username']);
+                    userName.css({"width" : "%4"});
+                    userDiv.append(userName);
+                    newDiv.append(userDiv);
+                    
+                    console.log(userData[j]);
+                }
             }
         }
         })
