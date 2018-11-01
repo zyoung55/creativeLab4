@@ -4,13 +4,17 @@ global $
 
 $(document).ready(function() {
     
+    $.getJSON("updatedCityInfo", function(data) {
+        console.log(data);
+    })
+    
     console.log("YEAH!");
     
     $("#userForm").submit(function(e) {
         e.preventDefault();
         
         /*Checks to make sure all input was selected. */
-        if ($("#gender").val() == '' || $('#userName').val() || $('#userCity').val() == '') {
+        if ($("#gender").val() == '' || $('#userName').val() == '' || $('#userCity').val() == '') {
             alert("You did not enter information into at least one of the data fields. Please reenter your information.");
             $("#gender").val('');
             $('#userName').val('');
@@ -46,8 +50,6 @@ $(document).ready(function() {
         
         /*Get the original data for the city.*/
         $.getJSON(cityUrl, function() {})
-        
-        /*Error checking for the request for city data.*/
         .error(function() { 
             var alertString = "There was an issue with the city for which you were searching.\n"; 
             alertString += "Please try again with a large city/country close to the one you originally tried.";
@@ -55,14 +57,10 @@ $(document).ready(function() {
             $('#userName').val('');
             $('#userCity').val('');
         })
-        
-        /*If successful, put the data into the html.*/
         .success(function(data) {
             cityData["continent"] = data.continent;
             cityData["fullName"] = data.full_name;
             cityData["pictureURL"] = data["_links"]["ua:images"]["href"];
-            
-            /*Get the url for the cities picture to display. */
             $.getJSON(cityData["pictureURL"], function(data){
                 cityData["mobileURL"] = data.photos[0]["image"]["mobile"];
                 
