@@ -5,7 +5,56 @@ global $
 $(document).ready(function() {
     
     $.getJSON("updatedCityInfo", function(data) {
+        $.getJSON("userInfo", function(userData) {
         console.log(data);
+        
+        var tempCitiesArray = [];
+        
+        /*This stores the information from data into the tempCitiesArray */
+        for (var i = 0; i < data.length; ++i) {
+            var receivedCityData = {'continent' : '', 'cityName' : '', 'pictureUrl' :'', 'mobileUrl' : '', "peopleTally" : ''};
+            receivedCityData['continent'] = data[i]['continent'];
+            receivedCityData['cityName'] = data[i]['cityName'];
+            receivedCityData['pictureUrl'] = data[i]['pictureUrl'];
+            receivedCityData['mobileUrl'] = data[i]['mobileUrl'];
+            receivedCityData['peopleTally'] = data[i]['peopleTally'];
+            tempCitiesArray.push(receivedCityData);
+            console.log(tempCitiesArray[i]);
+        }
+        
+        /*This sorts the tempCitiesArray based on tally amount.*/
+        var tempvalue = '';
+        for (var i = 0; i < tempCitiesArray.length; ++i) {
+            for (var j = 0; j < tempCitiesArray.length - i - 1; ++j) {
+                if (tempCitiesArray[j]["peopleTally"] < tempCitiesArray[j + 1]["peopleTally"]) {
+                    tempvalue = tempCitiesArray[j];
+                    tempCitiesArray[j] = tempCitiesArray[j + 1];
+                    tempCitiesArray[j + 1] = tempvalue;
+                }
+            }
+        }
+        
+        /*This for-loop adds new city data to the page*/
+        for (var i = 0; i < tempCitiesArray.length; ++i) {
+            var newDiv = $('<div id="' +  $('#userCity').val() + '"></div>')
+            $("#containerDiv").append(newDiv);
+                
+            var cityNameElement = $("<h3>" + tempCitiesArray[i]["cityName"] + "</h3>");
+            newDiv.append(cityNameElement);
+                
+            var pictureElement = $('<img src="' + tempCitiesArray[i]["mobileUrl"] + '">');
+            newDiv.append(pictureElement);
+                
+            var continentElement = $("<h4>Continent: " + tempCitiesArray[i]["continent"] + "</h4>");
+            newDiv.append(continentElement);
+            
+            var currentMembers = $("<h4>Current users from city: " + tempCitiesArray[i]['peopleTally'] + "</h4>");
+            newDiv.append(currentMembers);
+            for (var j = 0; j < userData.length; ++j) {
+                console.log(userData[j]);
+            }
+        }
+        })
     })
     
     console.log("YEAH!");
@@ -67,23 +116,36 @@ $(document).ready(function() {
                 
                 var updatedCityUrl = "updatedCityInfo";
                 var updatedData = {"continent" : cityData["continent"], "cityName" : cityString, "pictureUrl" : cityData["pictureURL"], "mobileUrl" :  cityData["mobileURL"]}; 
-                $.post(updatedCityUrl, updatedData, function(data) {});
+                $.post(updatedCityUrl, updatedData, function(data) {
+                    if (data) {
+                        console.log("DATA:!!!" + data);
+                        var newDiv = $('<div id="' +  $('#userCity').val() + '"></div>')
+                        $("#containerDiv").append(newDiv);
                 
-                var newDiv = $('<div id="' +  $('#userCity').val() + '"></div>')
-                $("#containerDiv").append(newDiv);
+                        var cityNameElement = $("<h3>" + cityData["fullName"] + "</h3>");
+                        newDiv.append(cityNameElement);
                 
-                var cityNameElement = $("<h3>" + cityData["fullName"] + "</h3>");
-                newDiv.append(cityNameElement);
+                        var pictureElement = $('<img src="' + cityData["mobileURL"] + '">');
+                        newDiv.append(pictureElement);
                 
-                var pictureElement = $('<img src="' + cityData["mobileURL"] + '">');
-                newDiv.append(pictureElement);
+                        var continentElement = $("<h4>Continent: " + cityData["continent"] + "</h4>");
+                        newDiv.append(continentElement);
+                        
+                        var currentMembers = $("<h4>Current users from city: " + 1 + "</h4>");
+                        newDiv.append(currentMembers);
                 
-                var continentElement = $("<h4>Continent: " + cityData["continent"] + "</h4>");
-                newDiv.append(continentElement);
-                
-                newDiv.css({"text-align" : "center"});
-                $('#userName').val('');
-                $('#userCity').val('');
+                        newDiv.css({"text-align" : "center"});
+                        $('#userName').val('');
+                        $('#userCity').val('');
+                        window.location.reload(true);
+                        //$("#userForm").remove();
+                    }
+                    else {
+                        $('#userName').val('');
+                        $('#userCity').val('');
+                        window.location.reload(true);
+                    }
+                });
             })
         })
         console.log("it worked!");

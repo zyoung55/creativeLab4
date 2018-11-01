@@ -37,20 +37,25 @@ router.get('/userInfo', function(req, res){
 })
 
 router.post('/updatedCityInfo', function(req, res) {
+  console.log("req body: " + req.body.cityName);
   for (var i = 0; i < cityInfo.length; ++i) {
     if (cityInfo[i]['cityName'] == req.body.cityName) {
-      console.log("It worked!!!");
+      ++cityInfo[i]['peopleTally'];
+      console.log("cityName: " + cityInfo[i]['cityName']);
+      console.log("peopleTally: " + cityInfo[i]['peopleTally']);
+      res.send(false);
       return;
     }
   }
   console.log("made it here!");
   console.log("Data:" + req.body.continent);
-  var city = {'continent' : '', 'cityName' : '', 'pictureUrl' :'', 'mobileUrl' : ''};
+  var city = {'continent' : '', 'cityName' : '', 'pictureUrl' :'', 'mobileUrl' : '', "peopleTally" : 1};
   city['continent'] = req.body.continent;
   city['cityName'] = req.body.cityName;
   city['pictureUrl'] = req.body.pictureUrl;
   city['mobileUrl'] = req.body.mobileUrl;
   cityInfo.push(city);
+  res.send(true);
 })
 
 router.get('/updatedCityInfo', function(req, res, next) {
