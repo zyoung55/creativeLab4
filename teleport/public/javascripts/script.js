@@ -3,15 +3,24 @@ global $
 */
 
 $(document).ready(function() {
-   
+    
     console.log("YEAH!");
     
     $("#userForm").submit(function(e) {
         e.preventDefault();
         
+        /*Checks to make sure all input was selected. */
+        if ($("#gender").val() == '' || $('#userName').val() || $('#userCity').val() == '') {
+            alert("You did not enter information into at least one of the data fields. Please reenter your information.");
+            $("#gender").val('');
+            $('#userName').val('');
+            $('#userCity').val('');
+            return;
+        }
+        
+        /*This section of code changes user input for city name to a format that can be used in a query.*/
         var cityString = $('#userCity').val();
         var splitString = cityString.split('');
-        
         for (var i = 0; i < splitString.length; ++i) {
             console.log(splitString[i]);
             if (splitString[i] == " ") {
