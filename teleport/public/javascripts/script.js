@@ -36,7 +36,7 @@ $(document).ready(function() {
         
         /*This for-loop adds new city data to the page*/
         for (var i = 0; i < tempCitiesArray.length; ++i) {
-            var newDiv = $('<div id="' +  $('#userCity').val() + '"></div>')
+            var newDiv = $('<div class="cityDivs"></div>')
             $("#containerDiv").append(newDiv);
             if (i == 0) {
                 var numberOneMessage = $("<h3>Number One City!</h3>");
@@ -57,7 +57,7 @@ $(document).ready(function() {
             var cityNameElement = $("<h3>" + tempCitiesArray[i]["cityName"] + "</h3>");
             newDiv.append(cityNameElement);
                 
-            var pictureElement = $('<img src="' + tempCitiesArray[i]["mobileUrl"] + '">');
+            var pictureElement = $('<img class="cityImageClass" src="' + tempCitiesArray[i]["mobileUrl"] + '">');
             newDiv.append(pictureElement);
                 
             var continentElement = $("<h4>Continent: " + tempCitiesArray[i]["continent"] + "</h4>");
@@ -70,13 +70,13 @@ $(document).ready(function() {
                 //console.log("Current city name:" + tempCitiesArray[i]["cityName"] + " " + userData[j]['cityName']);
                 if (tempCitiesArray[i]['cityName'] == userData[j]['userCity']) {
                     var userDiv = $('<div class="userDisplayClass"></div>');
-                    var personImage = $('<img src="' + userData[j]['pictureUrl'] + '">');
-                    personImage.css({"width" : "4%"});
+                    var personImage = $('<img class="iconImageClass" src="' + userData[j]['pictureUrl'] + '">');
+                    personImage.css({"width" : "7%"});
                     userDiv.append(personImage);
                     
                     var userName = $('<h6>' + userData[j]['username'] + '</h6>');
                     console.log("userName" + userData[j]['username']);
-                    userName.css({"width" : "%4"});
+                    userName.css({"width" : "7%"});
                     userDiv.append(userName);
                     newDiv.append(userDiv);
                     
@@ -156,7 +156,7 @@ $(document).ready(function() {
                         var cityNameElement = $("<h3>" + cityData["fullName"] + "</h3>");
                         newDiv.append(cityNameElement);
                 
-                        var pictureElement = $('<img src="' + cityData["mobileURL"] + '">');
+                        var pictureElement = $('<img class="cityImageClass" src="' + cityData["mobileURL"] + '">');
                         newDiv.append(pictureElement);
                 
                         var continentElement = $("<h4>Continent: " + cityData["continent"] + "</h4>");
