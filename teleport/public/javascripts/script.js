@@ -87,7 +87,8 @@ $(document).ready(function() {
         }
         
         /*This section of code changes user input for city name to a format that can be used in a query.*/
-        var cityString = $('#userCity').val();
+        var initialString = $('#userCity').val()
+        var cityString = initialString.toLowerCase();
         var splitString = cityString.split('');
         for (var i = 0; i < splitString.length; ++i) {
             console.log(splitString[i]);
