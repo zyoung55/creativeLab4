@@ -101,6 +101,15 @@ $(document).ready(function() {
             return;
         }
         
+        /*var userName = $('#userName').val('');
+        
+        for (var i = 0; i < userName.length; ++i) {
+            if (!userName[i].match(/[a-z]/)) {
+                alert("An custom icon couldn't be created for your name. Please try again with a new input.")
+                return;
+            }
+        }*/
+        
         /*This section of code changes user input for city name to a format that can be used in a query.*/
         var initialString = $('#userCity').val()
         var cityString = initialString.toLowerCase();
