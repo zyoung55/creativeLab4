@@ -5,9 +5,12 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
-h1 {
-  text-align: center;
+.jumbotron{
   background-color: #0E1F42;
+}
+.jumboText {
+  text-align: center;
+  font-size: 5em;
   padding: 3%;
   color: white;
   margin-left: 0px;
@@ -15,9 +18,11 @@ h1 {
 }
 
 .cityDivs {
-  width: 35%;
-  padding: 0%;
-  margin: 0%;
+  width: 33%;
+  padding: .1%;
+  margin-bottom: 25px;
+  margin-left: 2px;
+  margin-right: 2px;
 }
 
 .cityImageClass {
@@ -27,15 +32,21 @@ h1 {
 }
 
 .cityDivs h3 {
+  font-size: 200%;
     text-align: center;
+    text-transform:capitalize;
 }
 
 .cityDivs h4 {
+    font-size: 120%;
     text-align: center;
 }
 
-img {
-  width: 30%;  
+.iconImageClass{
+  width: 60%;
+}  
+#inputForm{
+  border-bottom: 5px solid black; 
 }
 
 h2 {
@@ -44,4 +55,20 @@ h2 {
 
 a {
   color: #00B7FF;
+}
+
+#containerDiv{
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-between;
+  
+}
+.userIconsDiv{
+  display: flex;
+  
+  flex-wrap: wrap;
+}
+.userDisplayClass{
+  text-align: center;
+  width:20%;
 }

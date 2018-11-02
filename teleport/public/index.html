@@ -1,25 +1,37 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Root Page</title>
     <link href="stylesheets/style.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <script src="javascripts/script.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
 </head>
+
 <body>
-    <h1>Greatest City Showdown</h1>
-    <h2>Insert your data below to be added to the showdown. The city with the most users wins!</h2>
-    <form id="userForm">
-        <span>Gender: </span>
-        <select id="gender">
-            <option value=""></option>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-        </select>
-        <span>Your Username:</span><input id="userName" type="text">
-        <span>Your City:</span><input id="userCity" type="text">
-        <button type="submit">Submit</button>
-    </form>
+    <div style="background:#0E1F42 !important" class="jumbotron">
+        <div class="jumboText">Greatest City Showdown</div>
+    </div>
+
+    
+    <h2>Insert your data below to be added to the showdown. The city with the most users wins!</h2></br></br>
+    <div class="container" id = "inputForm">
+        <form id="userForm" class="form-inline  justify-content-center">
+            <label class="mr-sm-2" for = "gender">Gender: </label>
+            <select id="gender" class="custom-select mb-2 mr-sm-2 mb-sm-0">
+                <option value=""></option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
+            <label for = "userName" class="mr-sm-2 ml-3">Your Username:</label><input id="userName" type="text" class="form-control">
+            <label for = "userCity" class="mr-sm-2 ml-3">Your City:</label><input id="userCity" type="text" class="form-control">
+            <button type="submit"  class="btn btn-primary ml-3">Submit</button>
+        </form></br></br>
+
+        
+    </div></br></br>
     <div id="containerDiv"></div>
 </body>
+
 </html>

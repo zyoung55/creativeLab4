@@ -54,10 +54,10 @@ $(document).ready(function() {
                 newDiv.append(numberThreeMessage);
             }
                 
-            var cityNameElement = $("<h3>" + tempCitiesArray[i]["cityName"] + "</h3>");
+            var cityNameElement = $("<h3>" + tempCitiesArray[i]["cityName"].replace(/-/g, ' ') + "</h3>");
             newDiv.append(cityNameElement);
                 
-            var pictureElement = $('<img class="cityImageClass" src="' + tempCitiesArray[i]["mobileUrl"] + '">');
+            var pictureElement = $('<img class="img-fluid" src="' + tempCitiesArray[i]["mobileUrl"] + '">');
             newDiv.append(pictureElement);
                 
             var continentElement = $("<h4>Continent: " + tempCitiesArray[i]["continent"] + "</h4>");
@@ -65,20 +65,25 @@ $(document).ready(function() {
             
             var currentMembers = $("<h4>Current users from city: " + tempCitiesArray[i]['peopleTally'] + "</h4>");
             newDiv.append(currentMembers);
+            
+            var userIcons = $("<div class = 'userIconsDiv'></div>");
+            newDiv.append(userIcons);
+            
             for (var j = 0; j < userData.length; ++j) {
                 //console.log(userData[j]);
                 //console.log("Current city name:" + tempCitiesArray[i]["cityName"] + " " + userData[j]['cityName']);
                 if (tempCitiesArray[i]['cityName'] == userData[j]['userCity']) {
                     var userDiv = $('<div class="userDisplayClass"></div>');
                     var personImage = $('<img class="iconImageClass" src="' + userData[j]['pictureUrl'] + '">');
-                    personImage.css({"width" : "7%"});
+                    //personImage.css({"width" : "7%"});
                     userDiv.append(personImage);
                     
                     var userName = $('<h6>' + userData[j]['username'] + '</h6>');
                     console.log("userName" + userData[j]['username']);
-                    userName.css({"width" : "7%"});
+                    //userName.css({"width" : "7%"});
                     userDiv.append(userName);
-                    newDiv.append(userDiv);
+                    //newDiv.append(userDiv);
+                    userIcons.append(userDiv);
                     
                     console.log(userData[j]);
                 }
