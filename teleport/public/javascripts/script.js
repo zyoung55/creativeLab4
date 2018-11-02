@@ -52,8 +52,9 @@ $(document).ready(function() {
                 numberThreeMessage.css({"color": "#E8B664"});
                 newDiv.append(numberThreeMessage);
             }
-                
-            var cityNameElement = $("<h3>" + tempCitiesArray[i]["cityName"].replace(/-/g, ' ') + "</h3>");
+            var cityNumber = i + 1;
+            
+            var cityNameElement = $("<h3>" + cityNumber + ". " +  tempCitiesArray[i]["cityName"].replace(/-/g, ' ') + "</h3>");
             newDiv.append(cityNameElement);
                 
             var pictureElement = $('<img class="img-fluid" src="' + tempCitiesArray[i]["mobileUrl"] + '">');

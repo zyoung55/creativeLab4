@@ -60,7 +60,9 @@ h2 {
 
 .jumbotron{
   background-color: #0E1F42;
+  height: 20%;
 }
+
 .jumboText {
   text-align: center;
   font-size: 5em;
