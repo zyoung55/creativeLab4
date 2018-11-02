@@ -1,3 +1,7 @@
+a {
+  color: #00B7FF;
+}
+
 body {
   padding-top: 20px;
   padding-left: 0px;
@@ -5,16 +9,24 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
-.jumbotron{
-  background-color: #0E1F42;
-}
-.jumboText {
+h2 {
   text-align: center;
-  font-size: 5em;
-  padding: 3%;
-  color: white;
-  margin-left: 0px;
-  margin-right: 0px;
+}
+
+#containerDiv {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-between;
+  
+}
+
+#inputForm {
+  border-bottom: 5px solid black; 
+}
+
+#noteParagraph {
+  text-align: center;
+  margin-bottom: 2%;
 }
 
 .cityDivs {
@@ -23,12 +35,6 @@ body {
   margin-bottom: 25px;
   margin-left: 2px;
   margin-right: 2px;
-}
-
-.cityImageClass {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .cityDivs h3 {
@@ -42,33 +48,34 @@ body {
     text-align: center;
 }
 
-.iconImageClass{
+.cityImageClass {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.iconImageClass {
   width: 60%;
 }  
-#inputForm{
-  border-bottom: 5px solid black; 
-}
 
-h2 {
+.jumbotron{
+  background-color: #0E1F42;
+}
+.jumboText {
   text-align: center;
+  font-size: 5em;
+  padding: 3%;
+  color: white;
+  margin-left: 0px;
+  margin-right: 0px;
 }
 
-a {
-  color: #00B7FF;
-}
-
-#containerDiv{
-  display: flex;
-  flex-wrap: wrap;
-  align-content: space-between;
-  
-}
-.userIconsDiv{
-  display: flex;
-  
-  flex-wrap: wrap;
-}
-.userDisplayClass{
+.userDisplayClass {
   text-align: center;
   width:20%;
+}
+
+.userIconsDiv {
+  display: flex;
+  flex-wrap: wrap;
 }

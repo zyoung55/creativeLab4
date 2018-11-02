@@ -4,9 +4,9 @@ global $
 
 $(document).ready(function() {
     
+    /*Get the city info and user info from previous inputs.*/
     $.getJSON("updatedCityInfo", function(data) {
         $.getJSON("userInfo", function(userData) {
-        console.log(data);
         
         var tempCitiesArray = [];
         
@@ -19,10 +19,9 @@ $(document).ready(function() {
             receivedCityData['mobileUrl'] = data[i]['mobileUrl'];
             receivedCityData['peopleTally'] = data[i]['peopleTally'];
             tempCitiesArray.push(receivedCityData);
-            console.log(tempCitiesArray[i]);
         }
         
-        /*This sorts the tempCitiesArray based on tally amount.*/
+        /*This sorts the tempCitiesArray based on users in a city.*/
         var tempvalue = '';
         for (var i = 0; i < tempCitiesArray.length; ++i) {
             for (var j = 0; j < tempCitiesArray.length - i - 1; ++j) {
@@ -36,11 +35,11 @@ $(document).ready(function() {
         
         /*This for-loop adds new city data to the page*/
         for (var i = 0; i < tempCitiesArray.length; ++i) {
-            var newDiv = $('<div class="cityDivs"></div>')
+            var newDiv = $('<div class="cityDivs"></div>');
             $("#containerDiv").append(newDiv);
             if (i == 0) {
                 var numberOneMessage = $("<h3>Number One City!</h3>");
-                numberOneMessage.css({"color" : "#FFE033"})
+                numberOneMessage.css({"color" : "#FFE033"});
                 newDiv.append(numberOneMessage);
             }
             if (i == 1) {
@@ -50,7 +49,7 @@ $(document).ready(function() {
             }
             if (i == 2) {
                 var numberThreeMessage = $('<h3>Number Three City!</h3>');
-                numberThreeMessage.css({"color": "#E8B664"})
+                numberThreeMessage.css({"color": "#E8B664"});
                 newDiv.append(numberThreeMessage);
             }
                 
@@ -70,30 +69,21 @@ $(document).ready(function() {
             newDiv.append(userIcons);
             
             for (var j = 0; j < userData.length; ++j) {
-                //console.log(userData[j]);
-                //console.log("Current city name:" + tempCitiesArray[i]["cityName"] + " " + userData[j]['cityName']);
                 if (tempCitiesArray[i]['cityName'] == userData[j]['userCity']) {
                     var userDiv = $('<div class="userDisplayClass"></div>');
+                    
                     var personImage = $('<img class="iconImageClass" src="' + userData[j]['pictureUrl'] + '">');
-                    //personImage.css({"width" : "7%"});
                     userDiv.append(personImage);
                     
                     var userName = $('<h6>' + userData[j]['username'] + '</h6>');
-                    console.log("userName" + userData[j]['username']);
-                    //userName.css({"width" : "7%"});
                     userDiv.append(userName);
-                    //newDiv.append(userDiv);
                     userIcons.append(userDiv);
-                    
-                    console.log(userData[j]);
                 }
             }
         }
         })
     })
-    
-    console.log("YEAH!");
-    
+
     $("#userForm").submit(function(e) {
         e.preventDefault();
         
@@ -106,21 +96,11 @@ $(document).ready(function() {
             return;
         }
         
-        /*var userName = $('#userName').val('');
-        
-        for (var i = 0; i < userName.length; ++i) {
-            if (!userName[i].match(/[a-z]/)) {
-                alert("An custom icon couldn't be created for your name. Please try again with a new input.")
-                return;
-            }
-        }*/
-        
         /*This section of code changes user input for city name to a format that can be used in a query.*/
         var initialString = $('#userCity').val()
         var cityString = initialString.toLowerCase();
         var splitString = cityString.split('');
         for (var i = 0; i < splitString.length; ++i) {
-            console.log(splitString[i]);
             if (splitString[i] == " ") {
                 splitString.splice(i, 1, '-');
             }
@@ -128,7 +108,6 @@ $(document).ready(function() {
         cityString = splitString.join('');
     
         var avatarUrl = "https://avatars.dicebear.com/v2" + "/" + $('#gender').val() + "/" + $('#userName').val() + ".svg";
-        console.log(avatarUrl);
     
         var userUrl = "userInfo";
         var userData = {"gender" : $('#gender').val(), "username" : $('#userName').val(), "customIcon" : avatarUrl, "userCity" : cityString};
@@ -142,7 +121,7 @@ $(document).ready(function() {
         
         var cityData = {"continent" : "", "fullName" : "", "pictureURL" : "", "mobileURL" : ""};
         
-        /*Get the original data for the city.*/
+        /*Get the data for the city from the teleport API.*/
         $.getJSON(cityUrl, function() {})
         .error(function() { 
             var alertString = "There was an issue with the city for which you were searching.\n"; 
@@ -157,13 +136,10 @@ $(document).ready(function() {
             cityData["pictureURL"] = data["_links"]["ua:images"]["href"];
             $.getJSON(cityData["pictureURL"], function(data){
                 cityData["mobileURL"] = data.photos[0]["image"]["mobile"];
-                
-                
                 var updatedCityUrl = "updatedCityInfo";
                 var updatedData = {"continent" : cityData["continent"], "cityName" : cityString, "pictureUrl" : cityData["pictureURL"], "mobileUrl" :  cityData["mobileURL"]}; 
                 $.post(updatedCityUrl, updatedData, function(data) {
                     if (data) {
-                        console.log("DATA:!!!" + data);
                         var newDiv = $('<div id="' +  $('#userCity').val() + '"></div>')
                         $("#containerDiv").append(newDiv);
                 
@@ -183,7 +159,6 @@ $(document).ready(function() {
                         $('#userName').val('');
                         $('#userCity').val('');
                         window.location.reload(true);
-                        //$("#userForm").remove();
                     }
                     else {
                         $('#userName').val('');
@@ -193,7 +168,6 @@ $(document).ready(function() {
                 });
             })
         })
-        console.log("it worked!");
     })
     
 })
